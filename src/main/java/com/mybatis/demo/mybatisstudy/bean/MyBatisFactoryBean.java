@@ -11,34 +11,34 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description 因为Spring无法把接口放到IOC容器中，所以通过FactoryBean将Mapper代理对象放到IOC容器中
  * @date 2021年10月01日 10:26 上午
  */
-public class MyBatisFactoryBean implements FactoryBean {
-    //private Logger logger = LoggerFactory.getLogger(MyBatisFactoryBean.class);
+public class MyBatisFactoryBean<T> implements FactoryBean<T> {
     /**
      * 实际上传进来的是mapper接口
      */
-    private Class mapperInterface;
+    private final Class<T> mapperClass;
 
     private SqlSession sqlSession;
 
-    public MyBatisFactoryBean(Class mapperInterface) {
-        this.mapperInterface = mapperInterface;
+    @Autowired
+    public MyBatisFactoryBean(Class<T> mapperClass) {
+        this.mapperClass = mapperClass;
     }
 
     @Autowired
     public void setSqlSession(SqlSessionFactory sqlSessionFactory) {
-        sqlSessionFactory.getConfiguration().addMapper(mapperInterface);
+        sqlSessionFactory.getConfiguration().addMapper(mapperClass);
         this.sqlSession = sqlSessionFactory.openSession();
     }
 
     @Override
-    public Object getObject() {
+    public T getObject() {
         // 返回MyBatis为mapper接口生成的代理对象
-        return sqlSession.getMapper(mapperInterface);
+        return sqlSession.getMapper(mapperClass);
     }
 
     @Override
     public Class<?> getObjectType() {
-        return mapperInterface;
+        return mapperClass;
     }
 
     @Override

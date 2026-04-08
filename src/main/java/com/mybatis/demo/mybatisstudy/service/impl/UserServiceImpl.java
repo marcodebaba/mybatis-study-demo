@@ -17,10 +17,10 @@ public class UserServiceImpl implements UserService {
      * MyBatis针对UserMapper生成的代理对象赋值给userMapper
      * Spring整合其他框架的思路就是把其他框架产生的对象放到Spring容器中
      */
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public void setUserMapper(UserMapper userMapper) {
+    public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
