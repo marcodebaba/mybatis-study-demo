@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author marco pan
- * @ClassName MyBatisFactoryBean
+ * @ClassName MapperFactoryBean
  * @Description 因为Spring无法把接口放到IOC容器中，所以通过FactoryBean将Mapper代理对象放到IOC容器中
  * @date 2021年10月01日 10:26 上午
  */
-public class MyBatisFactoryBean<T> implements FactoryBean<T> {
+public class MapperFactoryBean<T> implements FactoryBean<T> {
     /**
      * 实际上传进来的是mapper接口
      */
@@ -20,7 +20,7 @@ public class MyBatisFactoryBean<T> implements FactoryBean<T> {
     private SqlSession sqlSession;
 
     @Autowired
-    public MyBatisFactoryBean(Class<T> mapperClass) {
+    public MapperFactoryBean(Class<T> mapperClass) {
         this.mapperClass = mapperClass;
     }
 
