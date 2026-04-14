@@ -6,10 +6,10 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author marco pan
- * @ClassName MapperFactoryBean
- * @Description 因为Spring无法把接口放到IOC容器中，所以通过FactoryBean将Mapper代理对象放到IOC容器中
- * @date 2021年10月01日 10:26 上午
+ * author marco pan
+ * ClassName MapperFactoryBean
+ * Description 因为Spring无法把接口放到IOC容器中，所以通过FactoryBean将Mapper代理对象放到IOC容器中
+ * date 2021年10月01日 10:26 上午
  */
 public class MapperFactoryBean<T> implements FactoryBean<T> {
     /**

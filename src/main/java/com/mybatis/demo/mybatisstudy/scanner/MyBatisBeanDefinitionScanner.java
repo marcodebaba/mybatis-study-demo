@@ -7,8 +7,8 @@ import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.NonNullApi;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -37,19 +37,19 @@ public class MyBatisBeanDefinitionScanner extends ClassPathBeanDefinitionScanner
 
     /**
     * Description：重写ComponentScan的扫描方法，扫描所有的Mapper接口，把扫描到的Mapper接口放入FactoryBean的BeanDefinition中。
-    * @param basePackages
-    * @return java.util.Set<org.springframework.beans.factory.config.BeanDefinitionHolder>
-    * @author marcopan
-    * @date 2026/4/9 9:55
+    * param basePackages
+    * return java.util.Set<org.springframework.beans.factory.config.BeanDefinitionHolder>
+    * author marcopan
+    * date 2026/4/9 9:55
     **/
     @Override
-    protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
+    protected Set<BeanDefinitionHolder> doScan(@NonNull String... basePackages) {
         // 扫描指定路径下的接口
         Set<BeanDefinitionHolder> beanDefinitionHolders = super.doScan(basePackages);
         for (BeanDefinitionHolder beanDefinitionHolder : beanDefinitionHolders) {
             BeanDefinition beanDefinition = beanDefinitionHolder.getBeanDefinition();
             // 设置MyBatisFactoryBean的构造函数入参，给FactoryBean的mapperInterface赋值
-            beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(beanDefinition.getBeanClassName());
+            beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(Objects.requireNonNull(beanDefinition.getBeanClassName()));
             // 设置BeanClassName为MyBatisFactoryBean
             beanDefinition.setBeanClassName(MapperFactoryBean.class.getName());
         }

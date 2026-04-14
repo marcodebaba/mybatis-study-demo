@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Import;
 import javax.sql.DataSource;
 
 /**
- * @author marco pan
- * @ClassName MyBatisConfiguration
- * @Description 应用配置类
- * @date 2021年09月30日 11:47 下午
+ * author marco pan
+ * ClassName MyBatisConfiguration
+ * Description 应用配置类
+ * date 2021年09月30日 11:47 下午
  */
 @Configuration
 @MapperScan("com.mybatis.demo.mybatisstudy.mapper")
